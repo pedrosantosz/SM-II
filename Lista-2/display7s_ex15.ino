@@ -1,12 +1,10 @@
-// INCOMPLETA E LOGICA ERRADA
-
 #define DATA 5
 #define CLOCK 7
 #define LATCH 6
 
 byte display[] = { B11101111, B11011111, B10111111, B01111111 };
 byte vBuffer[] = { B11101110, B10111110, B11111100, B01111000 };
-byte vNumeros[] = { B11111100, B01100000, B11011010, B11110010, B01100110, B10110110, B10111110, B11100000, B11111110, B11110110};
+byte vNumeros[] = { B11111100, B01100000, B11011010, B11110010, B01100110, B10110110, B10111110, B11100000, B11111110, B11110110}; // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 
 void setup() {
@@ -16,12 +14,16 @@ void setup() {
 
   digitalWrite(CLOCK, LOW);
   digitalWrite(LATCH, LOW);
-
+  
+  for(int i = 0; i <= 2000; i++) {
+      exibeDecimal(i);
+      atualizaDisplayComDelay(50);
+  }
 }
 
 void loop() {
     exibeDecimal(1234);
-    atualizaDisplayComDelay(1000);
+    atualizaDisplay();
 }
 
 void enviaPulso(int pino) {
@@ -65,7 +67,7 @@ void exibeUnidade(byte valor) {
     vBuffer[i] = B00000000;
 }
 
-void exibeDecimal(byte valor) { //1234
+void exibeDecimal(int valor) { //1234
   //unidade = valor % 10; // 1234 % 10 / 1 = 4
   //decimal = valor % 100 ) / 10; // 1234 % 100 / 10 ~= 3
   //centena = valor % 1000 / 100; // 1234 % 1000 / 100 ~= 2
